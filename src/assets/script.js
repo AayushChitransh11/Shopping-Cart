@@ -110,6 +110,9 @@ function pay(amount){
   if(remaining>=0){
     totalPaid=0;
     emptyCart();
+  }else{
+    totalPaid+=amount;
+    remaining=totalPaid-cartTotal()
   }
   return remaining;
 }
