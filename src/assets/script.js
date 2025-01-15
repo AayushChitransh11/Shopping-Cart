@@ -1,13 +1,7 @@
-/* Create an array named products which you will use to add all of your product object literals that you create in the next step. */
+
 let products=[];
-/* Create 3 or more product objects using object literal notation 
-   Each product should include five properties
-   - name: name of product (string)
-   - price: price of product (number)
-   - quantity: quantity in cart should start at zero (number)
-   - productId: unique id for the product (number)
-   - image: picture of product (url string)
-*/
+
+// products with their description
 
   let product1={
     name:"Cherry",
@@ -34,13 +28,9 @@ let products=[];
 
 products.push(product1,product2,product3);
 
-/* Declare an empty array named cart to hold the items in the cart */
+
 let cart=[];
-/* Create a function named addProductToCart that takes in the product productId as an argument
-  - addProductToCart should get the correct product based on the productId
-  - addProductToCart should then increase the product's quantity
-  - if the product is not already in the cart, add it to the cart
-*/
+// function to add product to the cart
 function addProductToCart(productId){
   let product=null;
   for(let i=0;i<products.length;i++){
@@ -62,21 +52,12 @@ function addProductToCart(productId){
     }
   }
   if(!foundInCart){
-    cart.push({
-      name:product.name,
-      price:product.price,
-      quantity:1,
-      productId:product.productId,
-      image:product.image
-    });
+    cart.push(product);
   }
   
 }
 
-/* Create a function named increaseQuantity that takes in the productId as an argument
-  - increaseQuantity should get the correct product based on the productId
-  - increaseQuantity should then increase the product's quantity
-*/
+// function to product increase quantity
 function increaseQuantity(productId){
   for(let i=0;i<cart.length;i++){
     if(cart[i].productId===productId){
@@ -84,11 +65,8 @@ function increaseQuantity(productId){
     }
   }
 }
-/* Create a function named decreaseQuantity that takes in the productId as an argument
-  - decreaseQuantity should get the correct product based on the productId
-  - decreaseQuantity should decrease the quantity of the product
-  - if the function decreases the quantity to 0, the product is removed from the cart
-*/
+
+// function to product decrease quantity
 function decreaseQuantity(productId){
   for(let i=0;i<cart.length;i++){
     if(cart[i].productId===productId){
@@ -101,11 +79,7 @@ function decreaseQuantity(productId){
   }
 }
 
-/* Create a function named removeProductFromCart that takes in the productId as an argument
-  - removeProductFromCart should get the correct product based on the productId
-  - removeProductFromCart should update the product quantity to 0
-  - removeProductFromCart should remove the product from the cart
-*/
+// function to remove product from the cart
 function removeProductFromCart(productId){
   for(let i=0;i<cart.length;i++){
     if(cart[i].productId===productId){
@@ -114,11 +88,7 @@ function removeProductFromCart(productId){
     }
   }
 }
-/* Create a function named cartTotal that has no parameters
-  - cartTotal should iterate through the cart to get the total cost of all products
-  - cartTotal should return the total cost of the products in the cart
-  Hint: price and quantity can be used to determine total cost
-*/
+//function to calculate the cart total
 function cartTotal(){
   let total=0;
   for(let i=0;i<cart.length;i++){
@@ -126,21 +96,22 @@ function cartTotal(){
   }
   return total;
 }
-/* Create a function called emptyCart that empties the products from the cart */
 
+// function to empty the cart
 function emptyCart(){
-  cart=[];
+  cart.forEach(function (product){
+    removeProductFromCart(product.productId);
+  });
 }
-/* Create a function named pay that takes in an amount as an argument
-  - amount is the money paid by customer
-  - pay will return a negative number if there is a remaining balance
-  - pay will return a positive number if money should be returned to customer
-  Hint: cartTotal function gives us cost of all the products in the cart  
-*/
+// function to calulate the final amount
+let totalPaid=0;
 function pay(amount){
-  let total=cartTotal();
-  let difference=amount-total;
-  return difference;
+  let remaining=totalPaid-cartTotal();
+  if(remaining>=0){
+    totalPaid=0;
+    emptyCart();
+  }
+  return remaining;
 }
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
