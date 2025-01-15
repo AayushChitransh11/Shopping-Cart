@@ -104,18 +104,22 @@ function emptyCart(){
   });
 }
 // function to calulate the final amount
-let totalPaid=0;
-function pay(amount){
-  let remaining=totalPaid-cartTotal();
-  if(remaining>=0){
-    totalPaid=0;
-    emptyCart();
+let totalPaid = 0;
+
+function pay(amount) {
+  totalPaid += amount; 
+  let remaining = cartTotal() - totalPaid; 
+  if (remaining <= 0) {
+    let returnCash = -remaining; 
+    totalPaid = 0; 
+    emptyCart(); 
+    return returnCash;
   }else{
-    totalPaid+=amount;
-    remaining=totalPaid-cartTotal()
+    remaining=totalPaid-cartTotal();
   }
   return remaining;
 }
+
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
